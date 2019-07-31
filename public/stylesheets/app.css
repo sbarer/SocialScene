@@ -1,0 +1,358 @@
+body {
+  text-align: center;
+  background-color: #222324;
+  font-family: Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;*/
+  font-size: 22px;
+  color: black;
+  min-width: 1000px;  
+  min-height: 800px;
+  /* width: auto;  */
+}
+
+.App-header {
+  background-color: #222324;
+  border: 4px solid white;
+  border-radius: 5px;
+  width: auto;
+  min-height: 100px;
+  max-height: 16vh;
+  /* margin: 1px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(30px + 6vw);
+  color: white;
+  letter-spacing: 25px;
+}
+
+
+.login_body {
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white;
+  width: 375px;
+  height: 500px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: auto;
+}
+
+.user_box {
+  border-radius: 8px;
+  border: 1px dashed white;
+  border-color: white;
+  padding: 8px 0px;
+  margin: 15px 5px;
+  width: auto;
+  height: 125px; 
+  width: 240px;
+}
+
+.Review_Form {
+  color: white; 
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white; 
+  margin: auto; 
+  padding: 10px;
+  text-align: center;
+  width: 325px;
+  height: 375px;
+}
+
+
+.Review_Form2 {
+  color: white; 
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white; 
+  margin: auto; 
+  padding: 10px;
+  text-align: center;
+  width: 600px;
+  height: 375px;
+  overflow-y: scroll;
+}
+
+.number1 {
+  text-align: center; 
+  color: white; 
+  font-weight: bold; 
+  width: 45px; 
+  outline: none; 
+  background: transparent;
+  font-size: 18px;
+}
+
+input[type=number1]::-webkit-inner-spin-button, 
+input[type=number1]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  /* margin: 0;  */
+}
+input[type="number1"] {
+  -moz-appearance: textfield;
+}
+
+.review_field {
+  color: white; 
+  outline: none; 
+  background: transparent;
+  text-align: top;
+  width: 300px;
+  height: 100px;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.register_body {
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white;
+  width: 575px;
+  height: 550px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: auto;
+}
+
+.display_reviews {
+  /* border-collapse: collapse;  */
+  border-top: 1px solid white;
+  /* border-radius: 5px; */
+  color: white;
+  padding: 5px 10px;
+  margin: auto;
+  width: 95%;
+  font-size: 14px;
+}
+
+.display_reviews tr {
+  border-bottom: 1px dashed white;
+  padding: 5px;
+}
+
+.display_reviews td {
+  padding: 5px;
+  border-bottom: 1px dashed white;
+}
+
+.TMDB_pic {
+  align-content: left;
+  display: block;
+  max-width: 125px;
+  max-height: 50px;
+  width: auto;
+  height: auto;
+  position:absolute;                  
+  bottom:0;                          
+  left:0;
+}
+
+.login_table {
+  margin: auto;
+  width: auto;
+}
+
+.login_header {
+  letter-spacing: 15px; 
+  align-self: center; 
+  margin: auto;
+  /* text-align: center; */
+  font-size: 38px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+button{
+  background-color: white;
+  width: 200px;
+  height: 55px;
+  padding: 3px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+button:hover{
+  background-color: rgb(192, 189, 189);
+}
+
+button#currfile{
+  background-color: rgb(236, 236, 236);
+  color: black;
+}
+
+.back_button {
+  height: 40px;
+  background-color: white;
+  width: 150px;
+  padding: 3px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.submit_button{
+  background-color: white;
+  width: 150px;
+  height: 55px;
+  padding: 3px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+input{
+  border-radius: 10px;
+  text-align: left;
+  height: 20px;
+  width: 200px;
+  padding: 5px;
+}
+
+table {
+  text-align: left;
+}
+
+div.popular{
+  width: 90%;
+  align-self: center;
+  overflow:auto;
+  white-space: nowrap;
+}
+
+table.display{
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px ;
+  border:solid white;
+  border-radius: 5px;
+  padding: 20px;
+  color: white;
+}
+
+.collection {
+  color: white;
+}
+
+div.collection{
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 185px;
+}
+
+.collectionFriends {
+  color: white;
+}
+
+div.collectionFriends{
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 275px;
+ 
+}
+
+.header_div {
+  background-color: #222324;
+  border: 4px dashed white;
+  border-top: 0;
+  border-radius: 5px;
+  width: auto;
+  min-height: 4vh;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  font-size: 18px;
+  color: white;
+  letter-spacing: 12px;
+  padding: 1px 10px;
+}
+
+.title_header {
+  font-size: 18px;
+  color: white;
+  letter-spacing: 12px;
+  padding: 1px 10px;
+}
+
+.user_div_table {
+  width: 100%;
+  padding: 1px;
+  align-content: center;
+  align-self: center;
+}
+
+.user_div_user_bttn1 {
+  background-color: white;
+  border-radius: 5px;
+  width: calc(75px + 1.5vw);
+  height: 25px;
+  padding: 3px;
+  font-size: 12px;
+}
+
+.user_div_user_bttn1:hover{
+  background-color: rgb(192, 189, 189);
+}
+
+.user_div_user_bttn {
+  background-color: white;
+  border-radius: 5px;
+  width: 100px;
+  height: 25px;
+  padding: 3px;
+  font-size: 12px;
+}
+
+.user_div_user_bttn2:hover{
+  background-color: rgb(192, 189, 189);
+}
+
+.alert {
+  border-radius: 10px;
+  margin: auto;
+  font-size: 18px;
+  width: 75%;
+  padding: 8px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+}
+
+.closebtn {
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  align-self: center;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+ul {
+  text-align: left
+}
+
+.user_movie_view {
+  border-bottom: 1px dashed white;
+  width: 90%;
+  margin: auto;
+}

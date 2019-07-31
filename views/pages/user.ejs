@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Social Scene</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+  <header key="splash_screen">
+    <div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+      SocialScene
+    </div>
+    <div class="header_div">
+    <table class="user_div_table">
+        <tr>
+          <td style="font-size: 20px;" align="left">
+            <table>
+              <tr>
+                <td colspan="3" align="center">
+                  <%= user.fname %> <%= user.lname %><br/>
+                </td>
+              </tr>
+              <tr>
+                <td><button class="button user_div_user_bttn1" onclick="window.location.href='/logout'"> Logout </button></td>
+                <td><button class="button user_div_user_bttn1" onclick="window.location.href='/edituser'"> Your Info </button></td>
+                <td><button class="button user_div_user_bttn1" onclick="window.location.href='/friends'"> Friends </button></td>
+              </tr>
+            </table>
+          </td>
+          <td></td>
+          <td rowspan="2">
+              <div style="display: inline-block;float: right;">
+              <!-- a search box -->
+                <form method= 'post'">
+                  <input type="text" name="keyword" placeholder =" Enter Keyword to search" style="border-radius: 10px; width: 200px" required>
+                  <input type="hidden" name="pg" value="1">
+                  <table style="margin:auto;" align="center">
+                    <td><button class="button user_div_user_bttn" formaction="/searchmv">Search Movies</button></td>
+                    <td><button class="button user_div_user_bttn" formaction="/searchtv">Search TV</button></td>
+                  </table>
+                </form>
+              </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </header>
+  <br/>
+
+  <%const base = 'https://image.tmdb.org/t/p/w185';%>
+  <% if (reviews.length > 0) {%>
+  <div class="user_movie_view" align="center">
+  <h3 style="color: white;">What Your Friends Have Been Watching Recently</h3>
+  <div class="popular">
+    <%var m = (reviews) ? reviews.length : 0;%>
+    <% for (var i=0; i<m ; i++) { %>
+        <% r = reviews[i]; %>
+      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' style="cursor:pointer;">
+          <form name='<%=r.id%>' method="post" action="/details">
+              <input type="hidden" name="id" value="<%=r.id%>">
+              <input type="hidden" name="title" value="<%=r.title%>">
+              <input type="hidden" name="overview" value = "<%=r.overview%>">
+              <input type="hidden" name="date" value="<%=r.date%>">
+              <input type="hidden" name="poster" value="<%=r.poster%>">
+              <input type="hidden" name="language" value="<%=r.original_language%>">
+              <input type="hidden" name="rating" value="<%=r.tmdb_rating%>">
+        
+        <button style="border: 0; background: transparent; cursor:pointer;" formaction="/details">
+        <%if(r.poster == null){%>
+          <img src = '/noimg.jpg'>
+        <%}else{%>
+          <%var url = base + r.poster%>
+          <img src= '<%=url%>'>
+        <%};%>
+      </button>
+      </div>
+    
+    </form>
+
+    <%};%>
+  </div>
+  <br/>
+  </div>
+  
+  
+  <% } %>
+  <% if (top_reviews.length > 0) {%>
+  <div class="user_movie_view" align="center">
+  <h3 style="color: white;">Your Friends' Favourites</h3>
+  <div class="popular">
+    <%var m = (top_reviews) ? top_reviews.length : 0;%>
+    <% for (var i=0; i<m ; i++) { %>
+        <% r = top_reviews[i]; %>
+      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' style="cursor:pointer;">
+          <form name='<%=r.id%>' method="post" action="/details">
+              <input type="hidden" name="id" value="<%=r.id%>">
+              <input type="hidden" name="title" value="<%=r.title%>">
+              <input type="hidden" name="overview" value = "<%=r.overview%>">
+              <input type="hidden" name="date" value="<%=r.date%>">
+              <input type="hidden" name="poster" value="<%=r.poster%>">
+              <input type="hidden" name="language" value="<%=r.original_language%>">
+              <input type="hidden" name="rating" value="<%=r.tmdb_rating%>">
+        
+        <button style="border: 0; background: transparent; cursor:pointer;" formaction="/details">
+        <%if(r.poster == null){%>
+          <img src = '/noimg.jpg'>
+        <%}else{%>
+          <%var url = base + r.poster%>
+          <img src= '<%=url%>'>
+        <%};%>
+      </button>
+      </div>
+    </form>
+    <%};%>
+  </div>
+  <br/>
+  </div>
+  <% } %>
+  <% if (base_top_reviews.length > 0) {%>
+  <div class="user_movie_view" align="center">
+  <h3 style="color: white;">Our Users' Favourites</h3>
+  <div class="popular">
+    <%var m = (base_top_reviews) ? base_top_reviews.length : 0;%>
+    <% for (var i=0; i<m ; i++) { %>
+        <% r = base_top_reviews[i]; %>
+      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' style="cursor:pointer;">
+          <form name='<%=r.id%>' method="post" action="/details">
+              <input type="hidden" name="id" value="<%=r.id%>">
+              <input type="hidden" name="title" value="<%=r.title%>">
+              <input type="hidden" name="overview" value = "<%=r.overview%>">
+              <input type="hidden" name="date" value="<%=r.date%>">
+              <input type="hidden" name="poster" value="<%=r.poster%>">
+              <input type="hidden" name="language" value="<%=r.original_language%>">
+              <input type="hidden" name="rating" value="<%=r.tmdb_rating%>">
+        
+        <button style="border: 0; background: transparent; cursor:pointer;" formaction="/details">
+        <%if(r.poster == null){%>
+          <img src = '/noimg.jpg'>
+        <%}else{%>
+          <%var url = base + r.poster%>
+          <img src= '<%=url%>'>
+        <%};%>
+      </button>
+      </div>
+    </form>
+    <%};%>
+  </div>
+  <br/>
+  </div>
+  <% } %>
+  <% if (results.length > 0) {%>
+    <div class="user_movie_view" align="center">
+    <h3 style="color: white;">Watch Them Again</h3>
+    <div class="popular">
+      <%var m = (results) ? results.length : 0;%>
+      <% for (var i=0; i<m ; i++) { %>
+          <% r = results[i]; %>
+        <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' style="cursor:pointer;">
+            <form name='<%=r.id%>' method="post" action="/details">
+                <input type="hidden" name="id" value="<%=r.id%>">
+                <input type="hidden" name="title" value="<%=r.title%>">
+                <input type="hidden" name="overview" value = "<%=r.overview%>">
+                <input type="hidden" name="date" value="<%=r.date%>">
+                <input type="hidden" name="poster" value="<%=r.poster%>">
+                <input type="hidden" name="language" value="<%=r.original_language%>">
+                <input type="hidden" name="rating" value="<%=r.tmdb_rating%>">
+          
+          <button style="border: 0; background: transparent; cursor:pointer;" formaction="/details">
+          <%if(r.poster == null){%>
+            <img src = '/noimg.jpg'>
+          <%}else{%>
+            <%var url = base + r.poster%>
+            <img src= '<%=url%>'>
+          <%};%>
+        </button>
+        </div>
+      </form>
+      <%};%>
+    </div>
+    <br/>
+    </div>
+    <% } %>
+<br/><br/><br/>
+</body>
+</html>
+
+

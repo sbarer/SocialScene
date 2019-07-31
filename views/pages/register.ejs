@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Social Scene</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+  <header class="App-header" key="splash_screen" onclick="window.location.href='/'" style="cursor:pointer;">
+    SocialScene
+  </header>
+  <br/>
+
+  <br/>
+  
+  <div class="register_body" id="outerdiv">
+    <br/>
+    <div class="login_header">
+      Register
+    </div>
+    <br/>
+      <div class="alert" style ="display: <%= val %>">
+        This email has been already registered
+        <span class="closebtn"> x </span>
+      </div>
+
+      <form action="/register" method="post">
+        <table name="login_table" align="center">
+          <tbody align="center" style="padding: 2px;">
+            <tr>
+              <td>First Name:</td>
+              <td>&nbsp;</td>
+              <td>Last Name:</td>
+            </tr>
+            <tr>
+              <td><input type="text" name="fname" required /> </td>
+              <td>&nbsp;</td>
+              <td><input type="text" name="lname" required /> </td>
+            </tr>
+            
+            <tr>
+              <td>Password:</td>
+              <td>&nbsp;</td>
+              <td>Confirm Password:</td>
+            </tr>
+            <tr>
+              <td><input type="password" id="password" name="password" value="" required /> </td>
+              <td>&nbsp;</td>
+              <td><input type="password" id="pass_confirm" name="pass_confirm" value="" required onkeyup='check();' /> </td>
+            </tr>
+            <tr>
+              <td colspan="3">Email:</td>
+            </tr>
+            <tr>
+              <td colspan="3"><input type="email" id="email" name="email" required /> </td>
+            </tr>
+          </tbody>
+        </table>
+        <span id="chkermsg" style="display:none;font-size:calc(4px + 2vmin)" ></span>
+        <br/>
+        <br/>
+        <button id="submitbutton"> Submit </button>
+      </form>
+      <br/>
+      <div>
+        <button class="button submit_button" onclick="window.location.href='/'"> Back </button>
+      </div>
+	</div>
+</body>
+</html>
+
+<script>
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+</script>
+
+<script>
+  var check = function() {
+    if ( document.getElementById("password").value == document.getElementById('pass_confirm').value ) {
+      // document.getElementById("chkermsg").style.display = 'none';
+      document.getElementById("submitbutton").disabled = false;
+      document.getElementById("chkermsg").style.color = 'green';
+      document.getElementById("chkermsg").innerHTML = 'Passwords Match';
+      document.getElementById("password").style.backgroundColor = 'lightgreen';
+      document.getElementById("pass_confirm").style.backgroundColor = 'lightgreen';
+    }
+    else {
+      document.getElementById("chkermsg").style.display = 'inline-block';
+      document.getElementById("submitbutton").disabled = true;
+      document.getElementById("chkermsg").style.color = 'red';
+      document.getElementById("chkermsg").innerHTML = 'Please Ensure Passwords Match';
+      document.getElementById("password").style.backgroundColor = 'pink';
+      document.getElementById("pass_confirm").style.backgroundColor = 'pink';
+    }
+  }
+</script>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Results</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body <% if (total_results != 0){%>style="float: left; display: inline-block;"<%};%>>
+	<%const base = 'https://image.tmdb.org/t/p/w185';%>
+	<header key="splash_screen">
+		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+			SocialScene
+		</div>
+		<div class="header_div" style="align-content: center;">
+			<% if (total_results == 0){%>
+				<p style="color: red">There are no results to display.<br/>Please try a different keyword </p>
+			<%}else{%>
+				<p>Now Displaying <span style="color: red;font-weight: bold"><%=results.length%></span> Search Results</p>
+			<%};%>
+		</div>
+	</header>
+	
+	<br/>
+
+	<br/>
+	<% if (total_results == 0){%>
+		<br/>
+		<div class="login_body" align="center" >
+		<br/><br/>
+		Please Enter a New Search
+		<br/><br/><br/><br/>
+		<!-- a search box -->
+			<form method= 'post'">
+			<input type="text" name="keyword" placeholder =" Enter Keyword to search" style="border-radius: 10px; width: 200px" required>
+			<input type="hidden" name="pg" value="1">
+			<table style="margin:auto;" align="center">
+				<td><button class="button user_div_user_bttn" formaction="/searchmv">Search Movies</button></td>
+				<td><button class="button user_div_user_bttn" formaction="/searchtv">Search TV</button></td>
+			</table>
+			</form>
+			<br/><br/>
+			<button onclick="window.location.href='/user'"> Back to Main</button>
+
+		</div>
+	<%} else {%>
+	<table>
+		<tr>
+			<td align="center">
+				<button onclick="window.location.href='/user'" style="width: 175px;">Back to Main</button>
+				&nbsp;&nbsp;
+				<button onclick="window.location.href='/tmdb'" style="width: 175px;">New Search</button>
+			</td>
+		</tr>
+		<tr><td><br/></td></tr>
+		<tr><td align="center">
+	
+	<!-- listing out the data -->
+	<div align="center" style="width: 100%; margin: auto; align-content: center">
+	<% var n = results.length;%>
+	<% for (var i=0; i<n; i++) { %>
+
+	<div class='collection' onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()' style=" display: inline-block; ">
+		<% r = results[i]; %>
+		<!-- <%= r.name %><br> -->
+		<%if(r.poster_path == null){%>
+			<img src = '/noimg.jpg'>
+		<%}else{%>
+			<%var url = base + r.poster_path%>
+			<img src= '<%=url%>'>
+		<%};%>
+		<!-- data to load a detailed page -->
+		<form name='<%=r.id%>' method="post" action="/details">
+			<input type="hidden" name="id" value="<%=r.id%>">
+			<input type="hidden" name="title" value="<%=r.name%>">
+			<input type="hidden" name="overview" value = "<%=r.overview%>">
+			<input type="hidden" name="date" value="<%=r.first_air_date%>">
+			<input type="hidden" name="poster" value="<%=r.poster_path%>">
+			<input type="hidden" name="language" value="<%=r.original_language%>">
+			<input type="hidden" name="vote" value="<%=r.vote_count%>">
+			<input type="hidden" name="rating" value="<%=r.vote_average%>">
+
+		</form>
+	</div>
+	<% }; %>
+
+	<% if (n < 4) {
+		for (var i = n; i <= 4; i++) { %>
+			<div class='collection' onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5'  style=" display: inline-block; ">
+				<img src = '/space.png'>
+			</div>
+
+	<%	}} %>
+	</div>
+	<!-- change page button -->
+	<div style="margin-top: 10px;">
+		<% if (results.length != 0){%>
+		<table width="100%">
+			<td>
+				<!-- previous page -->
+				<form method="post">
+					<input type="hidden" name="keyword_prev" value="<%=key%>">
+					<input type="hidden" name="pg_prev" value="<%=page-1%>">
+					<%if(page > 1){%>
+						<button formaction="/prevtv">Previous</button>
+					<% } else { %>
+						<button style="visibility: hidden">Previous</button>
+					<%};%>
+				</form>
+			</td>
+
+			<td>
+				<p align="center" style="color: white">Page <%=page%></p>
+			</td>
+
+			<td style="text-align: right;">
+				<!-- next page -->
+				<form method="post">
+					<input type="hidden" name="keyword" value="<%=key%>">
+					<input type="hidden" name="pg" value="<%=page+1%>">
+					<%if(page < total_pages){%>
+						<button formaction="/searchtv">Next</button>
+					<% } else { %>
+						<button style="visibility: hidden">Next</button>
+					<%};%>
+				</form>
+			</td>
+
+			<tr>
+				<td></td>
+				
+				<td></td>
+				
+			</tr>
+		</table>
+		<%};%>
+	</div>
+</td></tr>
+</table>
+<% };%>
+</body>
+</html>

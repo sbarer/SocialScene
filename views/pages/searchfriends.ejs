@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Friends</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+	<header key="splash_screen">
+		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+			SocialScene
+		</div>
+		<div class="header_div" style="align-content: center;">
+			<% if (results.length == 0 || (results.length == 1 && results[0].email == user.email)){%>
+				<p style="color: red">There are no results to display.<br/>Please try a different keyword </p>
+			<%}else{%>
+				<p>Now Displaying <span style="color: red; font-weight: bold"><%=results.length + friends.length%></span> Search Results</p>
+			<%};%>
+		</div>
+	</header>
+	<br/>
+	<% if (results.length == 0 || (results.length == 1 && results[0].email == user.email)){%>
+		<br/><br/>
+		<div class="login_body" id="outerdiv">
+				<br/><br/>
+					Please Enter a New<br/>Search for a Friend <br/>
+				<br/>
+			
+				<form action="/searchfriends" method="post">
+				<table name="login_table" align="center">
+					<tbody align="center" style="padding: 2px;">
+					<tr>
+						<td>First Name:</td>
+					</tr>
+					<tr>
+						<td><input type="text" name="fname"  /> </td>
+					</tr>
+					<tr>		
+						<td>Last Name:</td>
+					</tr>
+					<tr>
+						<td><input type="text" name="lname"  /> </td>
+					</tr>
+					</tbody>
+				</table>
+				<span id="chkermsg" style="display:none;font-size:calc(4px + 2vmin)" ></span>
+				<br/>
+				<br/>
+					<button id="submitbutton"> Search </button>
+				</form>
+				<br/>
+				<div>
+					<button class="button submit_button" onclick="window.location.href='/user'"> Back to Main</button>
+				</div>
+			</div>
+	
+	<%}else{%>
+		<div align="center" style="text-align: center">
+			<button onclick="window.location.href='/friends'" style="width: 175px;">Back to Search</button>
+			&nbsp;
+			<button onclick="window.location.href='/user'" style="width: 175px;">Back to Main</button>
+		</div>
+		<br/>
+	<!-- listing out the data -->
+	<% var n = friends.length;%>
+	<% var count = 0;%>
+	<table style="color: white" align="center">
+	<% for (var i=0; i<n ; i++) { %>
+		<% r = friends[i]; %>
+	
+		<% if (count % 4 == 0) {%>
+			<tr>
+		<%};%>
+			<% count++;%>
+				<td style="text-align: center; color: white" align="center">
+					<form action="/FriendRequest2" method="post">
+						<div class="user_box">
+							<div style="padding: 5px">
+								<%= r.fname2 %> <%= r.lname2 %> 
+							</div>
+							<div style="font-size: 14px; font-weight: 200">
+								<%= r.email2 %>
+							</div>
+							<input type="submit" id="friend_bttn<%= i %>" onclick="sendFriendRequest2('<%= i %>')" class="button user_div_user_bttn" style="width: 150px; margin: 14px; text-align: center" value="Remove Friend"></input>
+							
+							<!-- Send Values to index.js to add to friends table in db -->
+							<input style="display:none" type="fname1" id="fname1" name="fname1" value="<%= user.fname %>"/>
+							<input style="display:none" type="lname1" id="lname1" name="lname1" value="<%= user.lname %>"/>
+							<input style="display:none" type="email1" id="email1" name="email1" value="<%= user.email %>"/>
+
+							<input style="display:none" type="fname2" id="fname2" name="fname2" value="<%= r.fname2 %>"/>
+							<input style="display:none" type="lname2" id="lname2" name="lname2" value="<%= r.lname2 %>"/>
+							<input style="display:none" type="email2" id="email2" name="email2" value="<%= r.email2 %>"/>
+
+							<input style="display:none" type="value" id="value<%= i %>" name="value" value=""/>
+						</div>
+					</form>
+				</td>
+		<% if (count % 4 == 4) {%>
+			</tr>
+		<%};%>
+	
+	<% }; %>
+	</table>
+
+	
+
+
+	<% var n = results.length;%>
+	<% var count = 0;%>
+	<table style="color: white" align="center">
+	<% for (var i=0; i<n ; i++) { %>
+		<% r = results[i]; %>
+		<% if (r.email == user.email){%>
+		<%}else{%>
+	
+		<% if (count % 4 == 0) {%>
+			<tr>
+		<%};%>
+			<% count++;%>
+				<td style="text-align: center; color: white">
+					<form action="/FriendRequest" method="post">
+						<div class="user_box">
+							<div style="padding: 5px">
+								<%= r.fname %> <%= r.lname %> 
+							</div>
+							<div style="font-size: 14px; font-weight: 200">
+								<%= r.email %>
+							</div>
+							<input type="submit" id="friend_bttn<%= i %>" onclick="sendFriendRequest('<%= i %>')" class="button user_div_user_bttn" style="width: 150px; margin: 14px; text-align: center" value="Send Friend Request"></input>
+							
+							<!-- Send Values to index.js to add/remove friends table in db -->
+							<input style="display:none" type="fname1" id="fname1" name="fname1" value="<%= user.fname %>"/>
+							<input style="display:none" type="lname1" id="lname1" name="lname1" value="<%= user.lname %>"/>
+							<input style="display:none" type="email1" id="email1" name="email1" value="<%= user.email %>"/>
+
+							<input style="display:none" type="fname2" id="fname2" name="fname2" value="<%= r.fname %>"/>
+							<input style="display:none" type="lname2" id="lname2" name="lname2" value="<%= r.lname %>"/>
+							<input style="display:none" type="email2" id="email2" name="email2" value="<%= r.email %>"/>
+
+							<input style="display:none" type="value" id="value<%= i %>" name="value" value=""/>
+						</div>
+					</form>
+				</td>
+		<% if (count % 4 == 4) {%>
+			</tr>
+		<%};%>
+	
+	<%};%>
+	<% }; %>
+	</table>
+
+	
+	<%};%>
+	
+</body>
+</html>
+
+
+<script>
+	function sendFriendRequest(i) {
+		var elem = document.getElementById("friend_bttn" + i)
+		var elemValue = document.getElementById("value" + i)
+		// console.log(elem.value)
+		if (elem.value == "Send Friend Request") {
+			elemValue.value = "Send Friend Request"
+			elem.value = "Cancel Request"
+		}
+		else { /* value == "Cancel Request" */
+			elemValue.value = "Cancel Request"
+			elem.value = "Send Friend Request"
+		}
+	}
+
+	function sendFriendRequest2(i) {
+		var elem = document.getElementById("friend_bttn" + i)
+		var elemValue = document.getElementById("value" + i)
+		// console.log(elem.value)
+		if (elem.value == "Remove Friend") {
+			elemValue.value = "Remove Friend"
+			elem.value = "Send Friend Request"
+		}
+		else { /* value == "Cancel Request" */
+			elemValue.value = "Send Friend Request"
+			elem.value = "Remove Friend"
+		}
+	}
+</script>

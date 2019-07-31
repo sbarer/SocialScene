@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Edit User</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+  <header key="splash_screen">
+    <div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+      SocialScene
+    </div>
+    <div class="header_div" style="align-content: center;font-size: 20px;">
+        <br/><%= results.fname %> <%= results.lname %><br/><br/>
+    </div>
+  </header>
+  <br/>
+  <table style="width: 90%" align="center"><tr>
+    <td>
+      <div class="login_body" style="padding: 10px; height: 550px; width: 450px" align="center">
+          <br/><br/>Edit Your Information<br/><br/>
+        <form action="/edituser" method="post">
+          <table align="center">
+            <tbody>
+              <tr>
+                <td>Enter First Name: &nbsp;</td>
+                <td><input type="text" name="fname" required value="<%= results.fname %>" /> </td>
+              </tr>
+              <tr>
+                <td>Enter Last Name: &nbsp;</td>
+                <td><input type="text" name="lname" required value="<%= results.lname %>"/> </td>
+              </tr>
+              <tr>
+                <td>Enter Password: &nbsp;</td>
+                <td><input type="password" id="password" name="password" required onkeyup='check();' value="<%= results.password %>"/> </td>
+              </tr>
+              <tr>
+                <td>Confirm Password: &nbsp;</td>
+                <td><input type="password" id="pass_confirm" name="pass_confirm" required onkeyup='check();' value="<%= results.password %>" /> </td>
+              </tr>
+            </tbody>
+          </table>
+          <span id="chkermsg" style="display:none;font-size:calc(4px + 2vmin)" ></span>
+          <br/>
+          <br/><br/>
+          <button id="submitbutton"> Submit </button>
+        </form>
+
+       
+        
+        
+
+        &nbsp;
+        <br/>
+
+      </div>
+    </td>
+    <td>
+
+
+
+      
+      <div class="Review_Form2" style="width: 450px; height: 550px;" >
+					<h3>Your Reviews</h3>
+
+					<table class="display_reviews">
+						<% var n = reviews.length;%>
+						<% for (var i = 0; i < n ; i++) { %>
+              <% r = reviews[i]; %>
+            <tr onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5'>
+              <td><%= r.title %></td>				
+							<td align="center">
+								<div style="border: 1px groove white; border-radius: 4px; padding: 1px;">
+									<%= r.rating %>/10
+								</div>
+							</td>
+              <td style="width: 400px"><%= r.review %></td>
+            </tr>
+            <% }; %>
+          </table>
+      </div>  
+</td></tr>
+</table>
+<br/>
+<div>
+  <button onclick="window.location.href='/user'"> Back </button>
+</div>
+
+
+
+
+</body>
+</html>
+
+
+<script>
+  var check = function() {
+    if ( document.getElementById("password").value == document.getElementById('pass_confirm').value ) {
+      // document.getElementById("chkermsg").style.display = 'none';
+      document.getElementById("submitbutton").disabled = false;
+      document.getElementById("chkermsg").style.color = 'green';
+      document.getElementById("chkermsg").innerHTML = 'The passwords match';
+      document.getElementById("password").style.backgroundColor = 'lightgreen';
+      document.getElementById("pass_confirm").style.backgroundColor = 'lightgreen';
+    }
+    else {
+      document.getElementById("chkermsg").style.display = 'inline-block';
+      document.getElementById("submitbutton").disabled = true;
+      document.getElementById("chkermsg").style.color = 'red';
+      document.getElementById("chkermsg").innerHTML = 'Please Ensure Passwords Match';
+      document.getElementById("password").style.backgroundColor = 'pink';
+      document.getElementById("pass_confirm").style.backgroundColor = 'pink';
+    }
+  }
+</script>

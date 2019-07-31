@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Summary</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+	<%const url = 'https://image.tmdb.org/t/p/w185'+ movieobj.poster;%>
+	<header key="splash_screen">
+		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+			SocialScene
+		</div>
+		<div class="header_div" style="align-content: center;">
+			<table width="100%">
+				<td>
+					<button onclick="window.location.href='/tmdb'" style="width: 175px;">New Search</button>
+				</td>
+				<td>
+					<p class="title_header" align="center"><%=movieobj.title%></p>
+				</td>
+				<td style="text-align: right;">
+					<button style="border-radius: 10px" onclick="window.location.href='/user'">Back to Main</button>
+				</td>
+			</table>
+		</div>
+	</header>
+
+	<table class="display">
+		<td style="min-width: 20%; text-align: center; align-items: center;">
+			<%if(movieobj.poster == ''){%>
+				<img src = '/noimg.jpg'>
+			<%}else{%>
+				<img src= '<%=url%>'>
+			<%};%>
+		</td>
+		<td style="padding-left: 20px">
+			<!-- overview -->
+			<%if(movieobj.overview == ''){%>
+				<!-- <p>Overview: N/A</p> -->
+			<%}else{%>
+				<p><%=unescape(movieobj.overview)%></p>
+			<%};%>
+			<!-- poster -->
+			<%if(movieobj.date == ''){%>
+				<p>Release Date: N/A</p>
+			<%}else{%>
+				<p>Release Date: <%=movieobj.date%></p>
+			<%};%>
+			<!--  -->
+			<table>
+				<col width="280">
+				<td>TMDB Rating: <%=movieobj.rating%>/10</td>
+			</table>
+		</td>
+	</table>
+
+	<table style="margin:auto; padding: 10px;">
+		<tr>
+			<td>
+				<div class="Review_Form">
+					<h3>Write a Review</h3>
+					<input align="center" style="text-align: center; display: none" type="text" name="title" value='<%=movieobj.title%>' disabled />
+
+					<table>
+					<div> 
+						<form action="/rateuser" method = "post" >
+						Rating: &nbsp  <input align="center" class="number1" type="number1" name="rating" placeholder="0-10" max="10" min="0" step="0.5" required>
+						<br>
+						<br>
+						Review:  <br> <textarea type="text" class="review_field" name="review" maxlength="250" required></textarea>
+						<br>
+						<br>
+						<button id="submitbutton" > Submit </button>
+						<input type="hidden" name="title" value="<%=movieobj.title%>">
+						</form>
+					</div>
+					</table>
+				</div>
+			</td>
+			<td>&nbsp</td>
+			<td>
+				<div class="Review_Form2">
+					<h3>What Your Friends Are Saying</h3>
+
+					<table class="display_reviews">
+						<% var n = reviews.length;%>
+						<% for (var i = 0; i < n ; i++) { %>
+							<% r = reviews[i]; %>
+						
+						<tr>
+							<td><%= r.fname %> <%= r.lname %></td>				  
+							<td align="center">
+								<div style="border: 1px groove white; border-radius: 4px; padding: 1px;">
+									<%= r.rating %>/10
+								</div>
+							</td>
+							<td style="width: 400px"><%= r.review %></td>
+						</tr>
+						  <% }; %>
+					  </table>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>

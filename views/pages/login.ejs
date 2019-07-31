@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Social Scene</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+  <header class="App-header" key="splash_screen" onclick="window.location.href='/'"  style="cursor:pointer;">
+    SocialScene
+  </header>
+  <br/>
+  <br/>
+  <div class="login_body" id="outerdiv">
+    <br/>
+    <div class="login_header">
+      Login
+    </div>
+    <br/>
+    <div class="alert" style ="display: <%= val %>">
+      <span class="closebtn"> X </span>
+      
+      Incorrect username / password
+    </div>
+    
+    <form action="/login" method="post">
+      <table align="center">
+        <tbody align="center">
+          <tr>
+            <td>Email:</td>
+          </tr>
+          <tr>
+            <td><input type="email" name="login_email" align="center" required /> </td>
+          </tr>
+
+          <tr>
+            <td><br/>Password:</td>
+          </tr>
+          <tr>
+            <td><input type="password" name="login_pass" required /> </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <br/>
+      <button class="button submit_button" id="submitbutton" > Submit </button>
+    </form>
+    <br/>
+    <div>
+      <button class="button submit_button" onclick="window.location.href='/'"> Back </button>
+    </div>
+  </div>
+  
+</body>
+</html>
+
+<script>
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+</script>
