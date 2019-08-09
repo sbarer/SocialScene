@@ -80,7 +80,7 @@
 							<div style="font-size: 14px; font-weight: 200">
 								<%= r.email2 %>
 							</div>
-							<input type="submit" id="friend_bttn<%= i %>" onclick="sendFriendRequest2('<%= i %>')" class="button user_div_user_bttn" style="width: 150px; margin: 14px; text-align: center" value="Remove Friend"></input>
+							<input type="submit" id="friend2_bttn<%= i %>" onclick="sendFriendRequest2('<%= i %>')" class="button user_div_user_bttn" style="width: 150px; margin: 14px; text-align: center" value="Remove Friend"></input>
 							
 							<!-- Send Values to index.js to add to friends table in db -->
 							<input style="display:none" type="fname1" id="fname1" name="fname1" value="<%= user.fname %>"/>
@@ -91,7 +91,7 @@
 							<input style="display:none" type="lname2" id="lname2" name="lname2" value="<%= r.lname2 %>"/>
 							<input style="display:none" type="email2" id="email2" name="email2" value="<%= r.email2 %>"/>
 
-							<input style="display:none" type="value" id="value<%= i %>" name="value" value=""/>
+							<input style="display:none" type="value" id="2value<%= i %>" name="value" value=""/>
 						</div>
 					</form>
 				</td>
@@ -172,8 +172,8 @@
 	}
 
 	function sendFriendRequest2(i) {
-		var elem = document.getElementById("friend_bttn" + i)
-		var elemValue = document.getElementById("value" + i)
+		var elem = document.getElementById("friend2_bttn" + i)
+		var elemValue = document.getElementById("2value" + i)
 		// console.log(elem.value)
 		if (elem.value == "Remove Friend") {
 			elemValue.value = "Remove Friend"
