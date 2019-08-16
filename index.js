@@ -93,7 +93,7 @@ app.get('/details', (req,res)=>{
 
 app.get('/friends', async (req,res) => {
   try {
-    console.log(user)
+    // console.log(user)
     const result  = await pool.query("select f.fname1, f.lname1, f.email1 from friends f where f.email2 = '" + user.email + "' and '" + user.email + "'  not in (select ff.email1 from friends ff where ff.email2 = f.email1);")    
     // console.log(result)
     const results = { 'results': (result) ? result.rows : null, user: user};
@@ -106,9 +106,9 @@ app.get('/friends', async (req,res) => {
 
 app.get('/friendlist', async (req,res) => {
   try {
-    console.log(user)
+    // console.log(user)
     const result  = await pool.query("select f.fname2, f.lname2, f.email2 from friends f where f.email1 = '" + user.email + "' and '" + user.email + "'  in (select ff.email2 from friends ff where ff.email1 = f.email2);")    
-    console.log(result.rows)
+    // console.log(result.rows)
     const results = { 'results': (result) ? result.rows : null, user: user};
     res.render('pages/friendlist', results);
   } catch (err) {
@@ -141,7 +141,7 @@ app.post('/login', function( req, res) {
     if (table.rows.length == 1) {
       var result = (table.rows[0].password==req.body.login_pass);
       if ( result ){
-        console.log("User found '" + req.body.login_email + "' || result " + result )
+        // console.log("User found '" + req.body.login_email + "' || result " + result )
         user.fname = table.rows[0].fname
         user.lname = table.rows[0].lname
         user.email = req.body.login_email
@@ -169,9 +169,9 @@ app.post('/searchfriends', async (req,res) => {
 
 
   const result  = await pool.query("select fname,lname,email from users where fname ilike" + fname + "and lname ilike " + lname + " and email not in (select f.email2 from friends f where f.email1 = '" + user.email + "') order by lower(fname) ASC;")
-  const friends  = await pool.query("select f.fname2, f.lname2, f.email2 from friends f where f.email1 = '" + user.email + "' order by lower(f.lname2) asc;")
-  console.log(result)
-  console.log(friends)
+  const friends  = await pool.query("select f.fname2, f.lname2, f.email2 from friends f where f.email1 = '" + user.email + "' and '" + user.email + "'  in (select ff.email2 from friends ff where ff.email1 = f.email2);")
+  // console.log(result)
+  // console.log(friends)
 
   const results = { 'results': (result) ? result.rows : null, 'user': user, 'friends': (friends) ? friends.rows : null};
   res.render('pages/searchfriends', results) 
@@ -328,7 +328,7 @@ app.post('/rateuser', async (req, res) => {
       escapedReviews.rows[i].overview = unescape(reviews.rows[i].overview)
     }
 
-    console.log(escapedReviews.rows)
+    // console.log(escapedReviews.rows)
 
     recent_review_data.reviews = escapedReviews.rows
 
@@ -357,7 +357,7 @@ app.post('/FriendRequest', async (req, res) => {
       console.log("entered search friends db")
       // search friend db to ensure that the request hasnt been submitted already
       const search = await client.query("select * from friends where email1 = '" + req.body.email1 + "' and email2 = '" + req.body.email2 + "';")
-      console.log("search: ", search)
+      // console.log("search: ", search)
       if (search.rowCount != 0) {
         // then it does exist, so do nothing
         console.log("entered rowcount!=0")
